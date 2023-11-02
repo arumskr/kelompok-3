@@ -26,3 +26,36 @@ topping_pizza = input("Topping pizza: ").Lower()
 crust = input("pilihan crust: ").Lower()
 size = input("ukuran: ").Lower()
 
+#percabangan untuk menentukan pilihan dan harga
+if topping_pizza == 'frankfurter': #jika topping pizza = frankfurter,
+    harga_topping = 43000 #maka harga topping = 43000
+elif topping_pizza == 'meat monsta': 
+    harga_topping =  43000 
+elif topping_pizza == 'super supreme':
+    harga_topping = 43000 
+elif topping_pizza == 'super supreme chicken': 
+    harga_topping = 43000 
+else: 
+    print('Maaf topping tidak valid')  #kondisi jika inputan tidak sesuai/tidak valid
+
+#percabangan / kondisi untuk pilihan crust
+if crust == 'pan':
+    harga_crust = 0
+elif crust == 'stuffedcrust cheese':
+    harga_crust = 12000
+elif crust == 'stufffedcrust sausage':
+    harga_crust = 10000
+elif crust == 'cheesy bites':
+    harga_crust = 14000
+else: 
+    print('Maaf crust tidak valid') 
+
+#percabangan / kondisi untuk pilihan ukuran pizza
+if size == 'personal': 
+    harga_size = 0
+elif size == 'regular': 
+    harga_size = 57000
+elif size == 'large': 
+    harga_size = 90000
+else:
+    print('Maaf size tidak valid') 
