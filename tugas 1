@@ -59,3 +59,22 @@ elif size == 'large':
     harga_size = 90000
 else:
     print('Maaf size tidak valid') 
+
+#input untuk user jika ingin menambahkan kan keju
+extracheese = input('Apakah anda mau menambah keju? y/n: ').lower() 
+
+#percabangan / kondisi untuk menambah keju
+if extracheese == 'y': 
+    harga_keju = 13000
+elif extracheese == 'n': 
+    harga_keju = 0 
+else:
+    print('Maaf tidak valid')         
+
+#perhitungan
+harga_total = harga_topping + harga_crust + harga_size + harga_keju 
+
+('==========================================================================') 
+print('Terima Kasih telah memesan... ') 
+('==========================================================================') 
+print('Total pesanan anda: Rp' + str(harga_total))
