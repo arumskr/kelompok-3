@@ -1,1 +1,28 @@
+print("----------------------------------------------------------------------------")
+print("Tugas Algoritma dan Pemrograman Membuat Program Pembelian Pizza Hut Otomatis")
+print("----------------------------------------------------------------------------")
+ 
+ #list berbagai menu topping dari pizza
+print("List berbagai macam topping pizza: ")
+print("1. Frankfurter")
+print("2. Meat Monsta")
+print("3. Super Supreme")
+print("4. Super Supreme Chicken")
+
+ #list untuk pilihan crust
+print("macam-macam pilihan crust: ")
+print("1. Pan")
+print("2. StuffedCrust Cheese")
+print("3. StuffedCrust Sausage")
+print("4. Cheesy Bites")
+
+ #list untuk pilihan ukuran pizza
+print("1. Personal")
+print("2. Regular")
+print("3. Large")
+
+ #input nama topping pizza, crust, beserta ukurannya
+topping_pizza = input("Topping pizza: ").Lower()
+crust = input("pilihan crust: ").Lower()
+size = input("ukuran: ").Lower()
 
