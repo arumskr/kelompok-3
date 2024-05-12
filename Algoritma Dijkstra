@@ -1,0 +1,102 @@
+# Daftar prefektur di Jepang
+prefektur_jepang = ['Hokkaido', 'Aomori', 'Iwate', 'Miyagi', 'Akita', 'Yamagata', 'Fukushima', 'Ibaraki', 'Tochigi', 'Gunma']
+
+# Daftar semua jalan antara prefektur-prefektur di Jepang
+jalan_jepang = [
+    ('Hokkaido', 'Aomori', 607.6),
+    ('Hokkaido', 'Iwate', 695.2),
+    ('Hokkaido', 'Miyagi', 877),
+    ('Hokkaido', 'Akita', 793.6),
+    ('Hokkaido', 'Yamagata', 975.5),
+    ('Hokkaido', 'Fukushima', 992.3),
+    ('Hokkaido', 'Ibaraki', 1178.4),
+    ('Hokkaido', 'Tochigi', 1181.4),
+    ('Hokkaido', 'Gunma', 1280.7),
+    ('Aomori', 'Iwate', 173.1),
+    ('Aomori', 'Miyagi', 315.0),
+    ('Aomori', 'Akita', 189.9),
+    ('Aomori', 'Yamagata', 413.6),
+    ('Aomori', 'Fukushima', 430.3),
+    ('Aomori', 'Ibaraki', 616.5),
+    ('Aomori', 'Tochigi', 619.4),
+    ('Aomori', 'Gunma', 718.7),
+    ('Iwate', 'Miyagi', 176.3),
+    ('Iwate', 'Akita', 146.2),
+    ('Iwate', 'Yamagata', 274.9),
+    ('Iwate', 'Fukushima', 291.6),
+    ('Iwate', 'Ibaraki', 477.8),
+    ('Iwate', 'Tochigi', 480.7),
+    ('Iwate', 'Gunma', 580),
+    ('Miyagi', 'Akita', 209.4),
+    ('Miyagi', 'Yamagata', 122.6),
+    ('Miyagi', 'Fukushima', 139.4),
+    ('Miyagi', 'Ibaraki', 325.5),
+    ('Miyagi', 'Tochigi', 328.5),
+    ('Miyagi', 'Gunma', 427.8),
+    ('Akita', 'Yamagata', 208.4),
+    ('Akita', 'Fukushima', 325),
+    ('Akita', 'Ibaraki', 511.2),
+    ('Akita', 'Tochigi', 514.1),
+    ('Akita', 'Gunma', 466.7),
+    ('Yamagata', 'Fukushima', 96.5),
+    ('Yamagata', 'Ibaraki', 314.7),
+    ('Yamagata', 'Tochigi', 285.6),
+    ('Yamagata', 'Gunma', 384.9),
+    ('Fukushima', 'Ibaraki', 221.8),
+    ('Fukushima', 'Tochigi', 192.7),
+    ('Fukushima', 'Gunma', 292),
+    ('Ibaraki', 'Tochigi', 79.9),
+    ('Ibaraki', 'Gunma', 182.3),
+    ('Tochigi', 'Gunma', 106.8),
+]
+
+# Menampilkan jalan yang terbentuk
+for idx, (pref_awal, pref_tujuan, jarak) in enumerate(jalan_jepang, start=1):
+    print(f"Jalan {idx}: Dari Prefektur {pref_awal} ke Prefektur {pref_tujuan}, Jarak: {jarak} km")
+
+import heapq
+
+# Fungsi untuk mencari jalur terpendek dengan algoritma Dijkstra
+def dijkstra(graph, start):
+    distances = {node: float('infinity') for node in prefektur_jepang}
+    distances[start] = 0
+    queue = [(0, start)]
+    
+    while queue:
+        current_distance, current_node = heapq.heappop(queue)
+        
+        if current_distance > distances[current_node]:
+            continue
+            
+        for neighbor, weight in graph[current_node].items():
+            distance = current_distance + weight
+            
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(queue, (distance, neighbor))
+    
+    return distances
+
+# Membuat graf dari jalan-jalan yang ada
+graf_jepang = {pref: {} for pref in prefektur_jepang}
+for pref_awal, pref_tujuan, jarak in jalan_jepang:
+    if pref_tujuan not in graf_jepang[pref_awal]:
+        graf_jepang[pref_awal][pref_tujuan] = jarak
+    if pref_awal not in graf_jepang[pref_tujuan]:
+        graf_jepang[pref_tujuan][pref_awal] = jarak
+
+# Menampilkan jalan yang terbentuk
+for idx, (pref_awal, pref_tujuan, jarak) in enumerate(jalan_jepang, start=1):
+    print(f"Jalan {idx}: Dari Prefektur {pref_awal} ke Prefektur {pref_tujuan}, Jarak: {jarak} km")
+
+# Menggunakan algoritma Dijkstra untuk mencari jalur terpendek dari 'Hokkaido' ke semua prefektur lainnya
+start_pref = 'Hokkaido'
+shortest_distances = dijkstra(graf_jepang, start_pref)
+
+# Mengurutkan hasil jalur terpendek dari yang terdekat ke yang terjauh
+sorted_distances = sorted(shortest_distances.items(), key=lambda x: x[1])
+
+# Menampilkan jalur terpendek dari 'Hokkaido' ke semua prefektur lainnya secara terurut
+print("\nJalur Terpendek dari Hokkaido ke Prefektur Lainnya:")
+for pref, distance in sorted_distances:
+    print(f"Prefektur {pref}: Jarak = {distance} km")
